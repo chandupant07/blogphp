@@ -55,28 +55,3 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.min.js"
   integrity="sha256-+vh8GkaU7C9/wbSLIcwq82tQ2wTf44aOHA8HlBMwRI8=" crossorigin="anonymous"></script>
 <!-- ChartJS -->
-
-
-<!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
-<script>
-  const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-  const Default = {
-    scrollbarTheme: 'os-theme-light',
-    scrollbarAutoHide: 'leave',
-    scrollbarClickScroll: true,
-  };
-  document.addEventListener('DOMContentLoaded', function () {
-    const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-    if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
-      OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-        scrollbars: {
-          theme: Default.scrollbarTheme,
-          autoHide: Default.scrollbarAutoHide,
-          clickScroll: Default.scrollbarClickScroll,
-        },
-      });
-    }
-  });
-</script>
-<!--end::OverlayScrollbars Configure-->
-<!--end::Script-->

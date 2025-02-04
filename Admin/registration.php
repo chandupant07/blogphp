@@ -12,10 +12,12 @@
   <style>
     #success {
       background-color: lightgreen;
+      padding: 10px;
     }
 
     #error {
-      background-color: lightgreen;
+      background-color: red;
+      padding: 10px;
     }
   </style>
 </head>
@@ -37,10 +39,10 @@
         require('conn.php');
 
         if (isset($_COOKIE['success'])) {
-          echo "<p>" . $_COOKIE['success'] . "</p>";
+          echo "<p id='success'>" . $_COOKIE['success'] . "</p>";
         }
         if (isset($_COOKIE['error'])) {
-          echo "<p>" . $_COOKIE['error'] . "</p>";
+          echo "<p id='error'>" . $_COOKIE['error'] . "</p>";
         }
         //  validate user function start
         function filterData($data)
@@ -58,13 +60,13 @@
           $status = 1;
 
           $dataSave = mysqli_query($con, "INSERT INTO user_reg (name,email,pasword,phone,ip,status)
-           VALUES('$name','$email','$$newPass','$phone','$ip','$status')");
+           VALUES('$name','$email','$newPass','$phone','$ip','$status')");
 
           if (mysqli_affected_rows($con) > 0) {
             setcookie("success", "Data Save Successfully", time() + 3);
             header('location:index.php');
           } else {
-            setcookie("error", "Data Save Successfully", time() + 3);
+            setcookie("error", "Email already exits", time() + 3);
             header('location:registration.php');
           }
         }

@@ -1,3 +1,27 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION['loginUser'])) {
+
+} else {
+  header('location:index.php');
+}
+include("conn.php");
+if (isset($_SESSION['loginUser']) && !empty($_SESSION['loginUser'])) {
+  $token = $_SESSION['loginUser'];
+  $result = mysqli_query($con, "SELECT name,email,phone,create_at FROM user_reg where id='$token'");
+  if (mysqli_num_rows($result) > 0) {
+    $row = mysqli_fetch_assoc($result);
+  } else {
+    echo "no";
+  }
+}
+
+
+?>
+
+
 <!--begin::Header-->
 <nav class="app-header navbar navbar-expand bg-body">
   <!--begin::Container-->
@@ -137,33 +161,24 @@
       <li class="nav-item dropdown user-menu">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
           <img src="./assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image" />
-          <span class="d-none d-md-inline">Alexander Pierce</span>
+          <span class="d-none d-md-inline"><?php echo $row['name']; ?></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
           <!--begin::User Image-->
           <li class="user-header text-bg-primary">
             <img src="./assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image" />
             <p>
-              Alexander Pierce - Web Developer
-              <small>Member since Nov. 2023</small>
+              <?php echo $row['name']; ?>
+              <small> <?php echo $row['create_at']; ?></small>
             </p>
           </li>
           <!--end::User Image-->
-          <!--begin::Menu Body-->
-          <li class="user-body">
-            <!--begin::Row-->
-            <div class="row">
-              <div class="col-4 text-center"><a href="#">Followers</a></div>
-              <div class="col-4 text-center"><a href="#">Sales</a></div>
-              <div class="col-4 text-center"><a href="#">Friends</a></div>
-            </div>
-            <!--end::Row-->
-          </li>
+
           <!--end::Menu Body-->
           <!--begin::Menu Footer-->
           <li class="user-footer">
             <a href="#" class="btn btn-default btn-flat">Profile</a>
-            <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+            <a href="logout.php" class="btn btn-default btn-flat float-end">Sign out</a>
           </li>
           <!--end::Menu Footer-->
         </ul>
