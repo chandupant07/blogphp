@@ -38,12 +38,7 @@
         <?php
         require('conn.php');
 
-        if (isset($_COOKIE['success'])) {
-          echo "<p id='success'>" . $_COOKIE['success'] . "</p>";
-        }
-        if (isset($_COOKIE['error'])) {
-          echo "<p id='error'>" . $_COOKIE['error'] . "</p>";
-        }
+
         //  validate user function start
         function filterData($data)
         {
@@ -63,15 +58,13 @@
            VALUES('$name','$email','$newPass','$phone','$ip','$status')");
 
           if (mysqli_affected_rows($con) > 0) {
-            setcookie("success", "Data Save Successfully", time() + 3);
             header('location:index.php');
           } else {
-            setcookie("error", "Email already exits", time() + 3);
             header('location:registration.php');
           }
         }
         ?>
-        <form action="" method="POST" onsubmit="return validateUser()">
+        <form action="index.php" method="POST" onsubmit="return validateUser()">
 
           <div class="input-group mb-1">
             <div class="form-floating">

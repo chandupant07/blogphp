@@ -1,6 +1,10 @@
 <?php
-if (!isset($_SESSION)) {
-  session_start();
+include('conn.php');
+session_start();
+if (isset($_SESSION['loginUser'])) {
+  header('location:dashboard.php');
+} else {
+
 }
 ?>
 <!doctype html>
@@ -39,7 +43,7 @@ if (!isset($_SESSION)) {
       </div>
       <div class="card-body login-card-body">
         <?php
-        include('conn.php');
+
 
         if (isset($_SESSION['success'])) {
           echo "<p id='success'>" . $_SESSION['success'] . "</p>";
@@ -61,12 +65,9 @@ if (!isset($_SESSION)) {
             $row = mysqli_fetch_assoc($result);
             $dbPass = $row['pasword'];
             if (password_verify($pass, $dbPass)) {
-              setcookie("success", "login successfully");
               header("location:dashboard.php");
-
               $_SESSION['loginUser'] = $row['id'];
             } else {
-              setcookie("error", "invalid user name or email");
               header("location:index.php");
             }
           } else {
