@@ -73,6 +73,11 @@
               echo "Data not saved,Try again";
             }
           }
+
+          if (isset($_REQUEST['id'])) {
+            $id = $_REQUEST['id'];
+            $cat_name = $_REQUEST['category_name'];
+          }
           ?>
           <form action="" method="POST" onsubmit="return checkValidation()">
             <div class="row">
@@ -113,7 +118,6 @@
                                 <th>#</th>
                                 <th>Id</th>
                                 <th>Category Name</th>
-                                <th>Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -128,11 +132,7 @@
                                     <td><?php echo $sn++; ?></td>
                                     <td><?php echo $row['id']; ?></td>
                                     <td><?php echo $row['category_name']; ?></td>
-                                    <td><a
-                                        href="edit-category.php?key=<?php echo $row['id'] ?>&cat_name=<?php echo $row['category_name'] ?>"><i
-                                          class="bi bi-pen-fill text-info"></i></a>
-                                      <a href="#"><i class="bi bi-trash3-fill text-danger"></i></a>
-                                    </td>
+
                                   </tr>
                                   <?php
                                 }

@@ -22,7 +22,25 @@
     }
     include('conn.php');
 
-
+    if (isset($_REQUEST['delKey'])) {
+      $delId = $_REQUEST['delKey'];
+      $del = mysqli_query($con, "DELETE FROM category_tbl WHERE id='$delId'");
+      if (mysqli_affected_rows($con) > 0) {
+        ?>
+        <script type="text/javascript">
+          alert('record delete successfully');
+          window.location("viewCategory.php");
+        </script>
+        <?php
+      } else {
+        ?>
+        <script type="text/javascript">
+          alert('record delete successfully');
+          window.location("viewCategory.php");
+        </script>
+        <?php
+      }
+    }
     ?>
     <!--begin::App Main-->
     <main class="app-main">
@@ -46,8 +64,6 @@
         </div>
         <!--end::Container-->
       </div>
-      <!--end::App Content Header-->
-      <!--begin::App Content-->
       <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
@@ -59,13 +75,8 @@
             return addslashes(strip_tags(trim($data)));
           }
           // get id from url using ID 
-          if (isset($_REQUEST['id'])) {
-            $id = $_REQUEST['id'];
-            echo $id;
-          }
-
           ?>
-          <form action="" method="POST" onsubmit="return checkValidation()">
+          <form action="" method="GET" onsubmit="return checkValidation()">
             <div class="row">
               <!-- Start col -->
               <div class="app-content">
@@ -100,12 +111,13 @@
                                   ?>
                                   <tr>
                                     <td><?php echo $sn++; ?></td>
-                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['id']; ?>
+                                    </td>
                                     <td><?php echo $row['category_name']; ?></td>
-                                    <td><a
-                                        href="addCategory.php?key=<?php echo $row['id'] ?>&cat_name=<?php echo $row['category_name'] ?>"><i
+                                    <td><a href="update.php?key=<?php echo $row['id']; ?>"><i
                                           class="bi bi-pen-fill text-info"></i></a>
-                                      <a href="#"><i class="bi bi-trash3-fill text-danger"></i></a>
+                                      <a href="viewCategory.php?delKey=<?php echo $row['id']; ?>"><i
+                                          class="bi bi-trash3-fill text-danger"></i></a>
                                     </td>
                                   </tr>
                                   <?php
